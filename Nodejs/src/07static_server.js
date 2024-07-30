@@ -16,6 +16,11 @@ const mime = require('./js/mime');
 
 http.createServer((req,res)=>{
     // 获取文件路径
+    if (path.normalize(decodeURI(pathname)) !== decodeURI(pathname)) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
     let pathname = url.parse(req.url,true).pathname;
 
     // 获取文件后缀名
